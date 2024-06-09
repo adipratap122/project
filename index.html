@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real estate</title>
+  
+</head>
+<body>
+
+
+<body>
+    <div id="loginSection">
+        <form id="loginForm" action="home.html" method="post" onsubmit="return validateLogin()">
+			<h2>Login</h2>
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <input type="submit" value="Login">
+        </form>
+        <p>Don't have an account? <a href="#" onclick="toggleForm()">Create One</a></p>
+    </div>
+
+    <div id="registrationSection" style="display:none;">
+        <form id="registrationForm" action="#" method="post" onsubmit="return createUser()">
+            <label for="newUsername">Username:</label>
+            <input type="text" id="newUsername" name="newUsername" required>
+            <label for="newPassword">Password:</label>
+            <input type="password" id="newPassword" name="newPassword" required>
+            <input type="submit" value="Create Account">
+        </form>
+        <p>Already have an account? <a href="#" onclick="toggleForm()">Login</a></p>
+    </div>
+
+    <script>
+        function validateLogin() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username === "Hi" && password === "Hi") {
+                return true; // 
+            } else {
+                alert("Incorrect username or password");
+                return false; // Prevent form submission
+            }
+        }
+
+        function toggleForm() {
+            var loginSection = document.getElementById("loginSection");
+            var registrationSection = document.getElementById("registrationSection");
+
+            if (loginSection.style.display === "none") {
+                loginSection.style.display = "block";
+                registrationSection.style.display = "none";
+            } else {
+                loginSection.style.display = "none";
+                registrationSection.style.display = "block";
+            }
+        }
+
+        function createUser() {
+            var newUsername = document.getElementById("newUsername").value;
+            var newPassword = document.getElementById("newPassword").value;
+
+            alert("Account created successfully for " + newUsername);
+            return true; // Allow form submission
+        }
+    </script>
+</body>
+
+
+
+
+</body>
+</html>

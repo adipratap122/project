@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Listing Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        #searchInput, #addPropertyForm input, #addPropertyForm button {
+            margin-bottom: 10px;
+            padding: 10px;
+            width: calc(100% - 24px);
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #searchInput {
+            margin-bottom: 20px;
+        }
+        #addPropertyForm {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        #addPropertyForm button {
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            border: none;
+            width: auto;
+            padding: 10px 20px;
+        }
+        #addPropertyForm button:hover {
+            background-color: #218838;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .actions button {
+            margin-right: 5px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .actions button.edit {
+            background-color: #ffc107;
+            color: white;
+        }
+        .actions button.edit:hover {
+            background-color: #e0a800;
+        }
+        .actions button.delete {
+            background-color: #dc3545;
+            color: white;
+        }
+        .actions button.delete:hover {
+            background-color: #c82333;
+        }
+        .actions button.save {
+            background-color: #007bff;
+            color: white;
+        }
+        .actions button.save:hover {
+            background-color: #0069d9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Real Estate Listing Service</h1>
+
+    <input type="text" id="searchInput" onkeyup="searchProperties()" placeholder="Search for properties...">
+
+    <form id="addPropertyForm" onsubmit="addProperty(); return false;">
+        <input type="text" id="address" placeholder="Address" required>
+        <input type="number" id="price" placeholder="Price" required>
+        <input type="text" id="type" placeholder="Type" required>
+        <input type="number" id="bedrooms" placeholder="Bedrooms" required>
+        <input type="number" id="bathrooms" placeholder="Bathrooms" required>
+        <button type="submit">Add Property</button>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Property ID</th>
+                <th>Address</th>
+                <th>Price</th>
+                <th>Type</th>
+                <th>Bedrooms</th>
+                <th>Bathrooms</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+       <tbody id="propertyTable">
+    <tr>
+        <td>1</td>
+        <td>123 Main St</td>
+        <td>$500,000</td>
+        <td>House</td>
+        <td>3</td>
+        <td>2</td>
+        <td class="actions">
+            <button class="edit" onclick="editProperty(this)">Edit</button>
+            <button class="delete" onclick="deleteProperty(this)">Delete</button>
+        </td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>456 Elm St</td>
+        <td>$750,000</td>
+        <td>House</td>
+        <td>4</td>
+        <td>3</td>
+        <td class="actions">
+            <button class="edit" onclick="editProperty(this)">Edit</button>
+            <button class="delete" onclick="deleteProperty(this)">Delete</button>
+        </td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>789 Oak St</td>
+        <td>$300,000</td>
+        <td>Apartment</td>
+        <td>2</td>
+        <td>1</td>
+        <td class="actions">
+            <button class="edit" onclick="editProperty(this)">Edit</button>
+            <button class="delete" onclick="deleteProperty(this)">Delete</button>
+        </td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>101 Maple Ave</td>
+        <td>$450,000</td>
+        <td>Townhouse</td>
+        <td>3</td>
+        <td>2</td>
+        <td class="actions">
+            <button class="edit" onclick="editProperty(this)">Edit</button>
+            <button class="delete" onclick="deleteProperty(this)">Delete</button>
+        </td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>202 Pine St</td>
+        <td>$650,000</td>
+        <td>House</td>
+        <td>4</td>
+        <td>3</td>
+        <td class="actions">
+            <button class="edit" onclick="editProperty(this)">Edit</button>
+            <button class="delete" onclick="deleteProperty(this)">Delete</button>
+        </td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>12 King St, Sydney</td>
+        <td>$1,200,000</td>
+        <td>House</td>
+        <td>5</td>
+        <td>4</td>
+        <td class="actions">
+            <button class="edit" onclick="editProperty(this)">Edit</button>
+            <button class="delete" onclick="deleteProperty(this)">Delete</button>
+        </td>
+    </tr>
+    <tr>
+        <td>7</td>
+        <td>34 Queen St, Melbourne</td>
+        <td>$950,000</td>
+        <td>Apartment</td>
+        <td>3</td>
+        <td>2</td>
+        <td class="actions">
+            <button class="edit" onclick="editProperty(this)">Edit</button>
+            <button class="delete" onclick="deleteProperty(this)">Delete</button>
+        </td>
+    </tr>
+    <tr>
+        <td>8</td>
+        <td>56 Collins St, Brisbane</td>
+        <td>$850,000</td>
+        <td>Townhouse</td>
+        <td>4</td>
+        <td>3</td>
+        <td class="actions">
+            <button class="edit" onclick="editProperty(this)">Edit</button>
+            <button class="delete" onclick="deleteProperty(this)">Delete</button>
+        </td>
+    </tr>
+    <tr>
+        <td>9</td>
+        <td>78 George St, Perth</td>
+        <td>$700,000</td>
+        <td>House</td>
+        <td>3</td>
+        <td>2</td>
+        <td class="actions">
+            <button class="edit" onclick="editProperty(this)">Edit</button>
+            <button class="delete" onclick="deleteProperty(this)">Delete</button>
+        </td>
+    </tr>
+    <tr>
+        <td>10</td>
+        <td>90 Adelaide St, Adelaide</td>
+        <td>$620,000</td>
+        <td>Apartment</td>
+        <td>2</td>
+        <td>2</td>
+        <td class="actions">
+            <button class="edit" onclick="editProperty(this)">Edit</button>
+            <button class="delete" onclick="deleteProperty(this)">Delete</button>
+        </td>
+    </tr>
+</tbody>
+
+    </table>
+
+    <script>
+        function searchProperties() {
+            let input = document.getElementById('searchInput');
+            let filter = input.value.toUpperCase();
+            let table = document.getElementById('propertyTable');
+            let tr = table.getElementsByTagName('tr');
+
+            for (let i = 0; i < tr.length; i++) {
+                let tdArray = tr[i].getElementsByTagName('td');
+                let txtValue = '';
+                for (let j = 0; j < tdArray.length; j++) {
+                    if (tdArray[j]) {
+                        txtValue += tdArray[j].textContent || tdArray[j].innerText;
+                    }
+                }
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = '';
+                } else {
+                    tr[i].style.display = 'none';
+                }
+            }
+        }
+
+        function addProperty() {
+            let table = document.getElementById('propertyTable');
+            let row = table.insertRow();
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            let cell3 = row.insertCell(2);
+            let cell4 = row.insertCell(3);
+            let cell5 = row.insertCell(4);
+            let cell6 = row.insertCell(5);
+            let cell7 = row.insertCell(6);
+
+            cell1.innerHTML = table.rows.length;
+            cell2.innerHTML = document.getElementById('address').value;
+            cell3.innerHTML = "$" + document.getElementById('price').value;
+            cell4.innerHTML = document.getElementById('type').value;
+            cell5.innerHTML = document.getElementById('bedrooms').value;
+            cell6.innerHTML = document.getElementById('bathrooms').value;
+            cell7.className = 'actions';
+            cell7.innerHTML = '<button class="edit" onclick="editProperty(this)">Edit</button> <button class="delete" onclick="deleteProperty(this)">Delete</button>';
+
+            document.getElementById('addPropertyForm').reset();
+        }
+
+        function deleteProperty(button) {
+            let row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+        }
+
+        function editProperty(button) {
+            let row = button.parentNode.parentNode;
+            let cells = row.getElementsByTagName('td');
+
+            let address = cells[1].innerText;
+            let price = cells[2].innerText.replace('$', '');
+            let type = cells[3].innerText;
+            let bedrooms = cells[4].innerText;
+            let bathrooms = cells[5].innerText;
+
+            cells[1].innerHTML = `<input type='text' value='${address}'>`;
+            cells[2].innerHTML = `<input type='number' value='${price}'>`;
+            cells[3].innerHTML = `<input type='text' value='${type}'>`;
+            cells[4].innerHTML = `<input type='number' value='${bedrooms}'>`;
+            cells[5].innerHTML = `<input type='number' value='${bathrooms}'>`;
+            cells[6].innerHTML = '<button class="save" onclick="saveProperty(this)">Save</button>';
+        }
+
+        function saveProperty(button) {
+            let row = button.parentNode.parentNode;
+            let cells = row.getElementsByTagName('td');
+
+            let address = cells[1].getElementsByTagName('input')[0].value;
+            let price = cells[2].getElementsByTagName('input')[0].value;
+            let type = cells[3].getElementsByTagName('input')[0].value;
+            let bedrooms = cells[4].getElementsByTagName('input')[0].value;
+            let bathrooms = cells[5].getElementsByTagName('input')[0].value;
+
+            cells[1].innerHTML = address;
+            cells[2].innerHTML = "$" + price;
+            cells[3].innerHTML = type;
+            cells[4].innerHTML = bedrooms;
+            cells[5].innerHTML = bathrooms;
+            cells[6].innerHTML = '<button class="edit" onclick="editProperty(this)">Edit</button> <button class="delete" onclick="deleteProperty(this)">Delete</button>';
+        }
+    </script>
+</body>
+</html>
